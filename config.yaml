@@ -9,3 +9,15 @@ models:
 
 # Default maximum tokens for response generation
 default_max_tokens: 8192
+
+# Welcome message for the /start command
+welcome_message: "Hello! I'm your friendly Telegram chatbot, powered by Groq's language model. How can I help you today?"
+
+# Help message for the /help command
+help_message: "Here are the available commands:\n\n/start - Start a new conversation\n/help - Show this help message\n/reset_chat - Reset the chat history"
+
+# Error message to display when an exception occurs
+error_message: "Oops, something went wrong. Please try again later."
+
+# Reset message for the /reset_chat command
+reset_message: "Chat history has been cleared. Let's start a new conversation!"
