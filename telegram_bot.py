@@ -33,34 +33,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Hi there! I'm a Telegram chatbot powered by Groq's language model. How can I assist you today?")
 
 async def chat(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_input = update.message.text
-    chat_history.append({"role": "user", "content": user_input})
+    # ... (existing chat function code)
 
-    try:
-        chat_completion = client.chat.completions.create(
-            model=model_option,
-            messages=chat_history,
-            max_tokens=default_max_tokens,
-            stream=True
-        )
-
-        response = ""
-        for chunk in chat_completion:
-            if chunk.choices[0].delta.content:
-                response += chunk.choices[0].delta.content
-                await context.bot.send_chat_action(chat_id=update.effective_chat.id, action="typing")
-                await context.bot.send_message(chat_id=update.effective_chat.id, text=chunk.choices[0].delta.content)
-
-        chat_history.append({"role": "assistant", "content": response})
-
-    except Exception as e:
-        error_message = f"Error: {e}"
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=error_message)
-
-if __name__ == "__main__":
+def run_telegram_bot():
     app = ApplicationBuilder().token(os.getenv("TELEGRAM_BOT_TOKEN")).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, chat))
 
     app.run_polling()
+
+if __name__ == "__main__":
+    run_telegram_bot()
