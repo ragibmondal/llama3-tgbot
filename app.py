@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from telegram_bot import run_telegram_bot
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='templates', template_folder='templates')
 
 @app.route('/')
 def index():
